@@ -89,7 +89,7 @@ const produtos: Produto[] = [
     categoria: "Eletrodomésticos",
     preco: 149.9,
     descricao: "Liquidificador com múltiplas velocidades e lâminas de aço inoxidável.",
-    imagem: "https://unsplash.com/pt-br/fotografias/uma-pessoa-despejando-uma-mistura-em-um-liquidificador-jQ3VZkHYh_Q",
+    imagem: "https://images.unsplash.com/photo-1622480916113-9000ac49b79d?q=80&w=2787&auto=format&fit=crop",
   },
   {
     id: 12,
