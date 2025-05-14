@@ -3,7 +3,7 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
 import type { Produto } from "@/types/produto"
 
-// Dados iniciais de produtos com URLs de imagens online
+// Dados iniciais de produtos
 const produtosIniciais: Produto[] = [
   {
     id: 1,
@@ -91,7 +91,7 @@ const produtosIniciais: Produto[] = [
     categoria: "Eletrodomésticos",
     preco: 149.9,
     descricao: "Liquidificador com múltiplas velocidades e lâminas de aço inoxidável.",
-    imagem: "https://images.unsplash.com/photo-1659536009108-ebe9053222d4?q=80&w=500&auto=format&fit=crop",
+    imagem: "https://images.unsplash.com/photo-1622480916113-9000ac49b79d?q=80&w=500&auto=format&fit=crop",
   },
   {
     id: 12,
@@ -103,12 +103,11 @@ const produtosIniciais: Produto[] = [
   },
 ]
 
-// Tipos
 interface ProdutosLocaisContextType {
   produtos: Produto[]
-  adicionarProduto: (produto: Omit<Produto, "id">) => { sucesso: boolean; mensagem: string; id?: number }
-  atualizarProduto: (id: number, produto: Partial<Produto>) => { sucesso: boolean; mensagem: string }
-  removerProduto: (id: number) => { sucesso: boolean; mensagem: string }
+  adicionarProduto: (produto: Omit<Produto, "id">) => void
+  atualizarProduto: (id: number, produto: Partial<Produto>) => void
+  removerProduto: (id: number) => void
 }
 
 const ProdutosLocaisContext = createContext<ProdutosLocaisContextType | undefined>(undefined)
@@ -116,97 +115,34 @@ const ProdutosLocaisContext = createContext<ProdutosLocaisContextType | undefine
 export function ProdutosLocaisProvider({ children }: { children: ReactNode }) {
   const [produtos, setProdutos] = useState<Produto[]>([])
 
-  // Carregar produtos do localStorage na inicialização
   useEffect(() => {
     const produtosArmazenados = localStorage.getItem("produtos")
     if (produtosArmazenados) {
-      try {
-        const parsedProdutos = JSON.parse(produtosArmazenados)
-        if (Array.isArray(parsedProdutos)) {
-          setProdutos(parsedProdutos)
-        } else {
-          console.error("Formato inválido de produtos no localStorage")
-          setProdutos(produtosIniciais)
-          localStorage.setItem("produtos", JSON.stringify(produtosIniciais))
-        }
-      } catch (error) {
-        console.error("Erro ao parsear produtos do localStorage:", error)
-        setProdutos(produtosIniciais)
-        localStorage.setItem("produtos", JSON.stringify(produtosIniciais))
-      }
+      setProdutos(JSON.parse(produtosArmazenados))
     } else {
       setProdutos(produtosIniciais)
       localStorage.setItem("produtos", JSON.stringify(produtosIniciais))
     }
   }, [])
 
-  // Salvar produtos no localStorage quando mudam
   useEffect(() => {
-    if (produtos.length > 0) {
-      localStorage.setItem("produtos", JSON.stringify(produtos))
-    }
+    localStorage.setItem("produtos", JSON.stringify(produtos))
   }, [produtos])
 
-  // Função para adicionar um novo produto
   const adicionarProduto = (produto: Omit<Produto, "id">) => {
-    // Validação básica
-    if (!produto.nome || !produto.categoria || produto.preco <= 0) {
-      return {
-        sucesso: false,
-        mensagem: "Dados do produto inválidos",
-      }
-    }
-
-    const novoProduto = {
-      ...produto,
-      id: Math.max(0, ...produtos.map((p) => p.id)) + 1,
-    } as Produto
-
+    const novoId = produtos.length > 0 ? Math.max(...produtos.map((p) => p.id)) + 1 : 1
+    const novoProduto = { id: novoId, ...produto }
     setProdutos([...produtos, novoProduto])
-
-    return {
-      sucesso: true,
-      mensagem: "Produto adicionado com sucesso",
-      id: novoProduto.id,
-    }
   }
 
-  // Função para atualizar um produto existente
   const atualizarProduto = (id: number, produto: Partial<Produto>) => {
-    const produtoExistente = produtos.find((p) => p.id === id)
-
-    if (!produtoExistente) {
-      return { sucesso: false, mensagem: "Produto não encontrado" }
-    }
-
-    // Validação básica
-    if (
-      (produto.nome !== undefined && produto.nome.trim() === "") ||
-      (produto.categoria !== undefined && produto.categoria.trim() === "") ||
-      (produto.preco !== undefined && produto.preco <= 0)
-    ) {
-      return {
-        sucesso: false,
-        mensagem: "Dados do produto inválidos",
-      }
-    }
-
-    setProdutos(produtos.map((p) => (p.id === id ? { ...p, ...produto } : p)))
-
-    return { sucesso: true, mensagem: "Produto atualizado com sucesso" }
+    const novaLista = produtos.map((p) => (p.id === id ? { ...p, ...produto } : p))
+    setProdutos(novaLista)
   }
 
-  // Função para remover um produto
   const removerProduto = (id: number) => {
-    const produtoExistente = produtos.find((p) => p.id === id)
-
-    if (!produtoExistente) {
-      return { sucesso: false, mensagem: "Produto não encontrado" }
-    }
-
-    setProdutos(produtos.filter((p) => p.id !== id))
-
-    return { sucesso: true, mensagem: "Produto removido com sucesso" }
+    const novaLista = produtos.filter((p) => p.id !== id)
+    setProdutos(novaLista)
   }
 
   return (
