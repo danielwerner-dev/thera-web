@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ListaProdutos deve renderizar corretamente e corresponder ao snapshot 1`] = `
+<div>
+  <div
+    data-testid="lista-produtos-mock"
+  >
+    <div
+      data-testid="resumo-filtros"
+    >
+      Resumo de Filtros
+    </div>
+    <div
+      class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4"
+    >
+      <div
+        class="text-sm text-gray-500 dark:text-gray-400 mb-2 sm:mb-0"
+      >
+        2
+         produtos encontrados
+      </div>
+      <div
+        data-testid="itens-por-pagina"
+      >
+        Itens por Página
+      </div>
+    </div>
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
+    >
+      <div
+        class="card-produto-mock"
+        data-testid="card-produto-1"
+      >
+        Produto: Produto Teste 1
+      </div>
+      <div
+        class="card-produto-mock"
+        data-testid="card-produto-2"
+      >
+        Produto: Produto Teste 2
+      </div>
+    </div>
+    <div
+      data-testid="paginacao"
+    >
+      Paginação
+    </div>
+  </div>
+</div>
+`;

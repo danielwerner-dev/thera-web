@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Página Home (Catálogo de Produtos) deve renderizar corretamente e corresponder ao snapshot 1`] = `
+<div>
+  <div>
+    <div
+      class="flex flex-col min-h-screen"
+    >
+      <div
+        data-testid="cabecalho-mock"
+      >
+        Cabeçalho
+      </div>
+      <main
+        class="flex-grow bg-gray-50 dark:bg-gray-900"
+      >
+        <div
+          class="container mx-auto px-4 py-4"
+        >
+          <div
+            class="grid grid-cols-1 lg:grid-cols-4 gap-4 md:gap-6"
+          >
+            <div
+              class="lg:col-span-1 hidden lg:block"
+            >
+              <div
+                data-testid="filtros-produtos-mock"
+              >
+                Filtros de Produtos
+              </div>
+            </div>
+            <div
+              class="lg:col-span-3"
+            >
+              <div
+                data-testid="filtros-mobile-mock"
+              >
+                Filtros Mobile
+              </div>
+              <div
+                data-testid="lista-produtos-mock"
+              >
+                Lista de Produtos
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <div
+        data-testid="rodape-mock"
+      >
+        Rodapé
+      </div>
+    </div>
+  </div>
+</div>
+`;

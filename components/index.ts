@@ -1,0 +1,12 @@
+// Implementação do padrão de barril para componentes
+export { default as Cabecalho } from "./cabecalho"
+export { default as CardProduto } from "./card-produto"
+export { default as FiltrosMobile } from "./filtros-mobile"
+export { default as FiltrosProdutos } from "./filtros-produtos"
+export { default as ItensPorPagina } from "./itens-por-pagina"
+export { default as ListaProdutos } from "./lista-produtos"
+export { default as ModalProduto } from "./modal-produto"
+export { default as Paginacao } from "./paginacao"
+export { default as ResumoFiltros } from "./resumo-filtros"
+export { default as Rodape } from "./rodape"
+export { default as SemImagem } from "./sem-imagem"
