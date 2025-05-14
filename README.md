@@ -1,6 +1,6 @@
 # Catálogo de Produtos
 
-![Catálogo de Produtos](/images/screenshot.png)
+![Catálogo de Produtos](public/images/screenshot.png)
 
 ## 📋 Sobre o Projeto
 
